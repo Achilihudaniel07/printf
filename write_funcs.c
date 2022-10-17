@@ -1,84 +1,42 @@
 #include "main.h"
+#include <unistd.h>
 
 /**
- * print_int - prints an integer
- * @l: va_list of arguments from _printf
- * @f: pointer to the struct flags determining
- * if a flag is passed to _printf
- * Return: number of char printed
+ * _putchar - writes the character c to stdout
+ * @c: The character to print
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
+ * Description: _putchar uses a local buffer of 1024 to call write
+ * as little as possible
  */
-int print_int(va_list l, flags_t *f)
+int _putchar(char c)
 {
-	int n = va_arg(l, int);
-	int res = count_digit(n);
+	static char buf[1024];
+	static int i;
 
-	if (f->space == 1 && f->plus == 0 && n >= 0)
-		res += _putchar(' ');
-	if (f->plus == 1 && n >= 0)
-		res += _putchar('+');
-	if (n <= 0)
-		res++;
-	print_number(n);
-	return (res);
-}
-
-/**
- * print_unsigned - prints an unsigned integer
- * @l: va_list of arguments from _printf
- * @f: pointer to the struct flags determining
- * if a flag is passed to _printf
- * Return: number of char printed
- */
-int print_unsigned(va_list l, flags_t *f)
-{
-	unsigned int u = va_arg(l, unsigned int);
-	char *str = convert(u, 10, 0);
-
-	(void)f;
-	return (_puts(str));
-}
-
-/**
- * print_number - helper function that loops through
- * an integer and prints all its digits
- * @n: integer to be printed
- */
-void print_number(int n)
-{
-	unsigned int n1;
-
-	if (n < 0)
+	if (c == -1 || i >= 1024)
 	{
-		_putchar('-');
-		n1 = -n;
+		write(1, &buf, i);
+		i = 0;
 	}
-	else
-		n1 = n;
-
-	if (n1 / 10)
-		print_number(n1 / 10);
-	_putchar((n1 % 10) + '0');
+	if (c != -1)
+	{
+		buf[i] = c;
+		i++;
+	}
+	return (1);
 }
 
 /**
- * count_digit - returns the number of digits in an integer
- * for _printf
- * @i: integer to evaluate
- * Return: number of digits
+ * _puts - prints a string to stdout
+ * @str: pointer to the string to print
+ * Return: number of chars written
  */
-int count_digit(int i)
+int _puts(char *str)
 {
-	unsigned int d = 0;
-	unsigned int u;
+	register int i;
 
-	if (i < 0)
-		u = i * -1;
-	else
-		u = i;
-	while (u != 0)
-	{
-		u /= 10;
-		d++;
-	}
-	return (d);
+	for (i = 0; str[i] != '\0'; i++)
+		_putchar(str[i]);
+	return (i);
 }
