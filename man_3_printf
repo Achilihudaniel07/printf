@@ -1,51 +1,35 @@
-#include "main.h"
+.TH _PRINTF "1" "18 OCTOBER 2022" "0x11. C - printf"
+.SH NAME
+_printf - print data according to a format
+.SH SYNOPSIS
+.B printf FORMAT [ARGUMENT]...
+.SH DESCRIPTION
+Prints ARGUMENT(s) based on FORMAT
 
+Format specifiers (beginning with %), the additional arguments following format are formatted and inserted.
 
+_printf will also take an indefinite amount of arguments.
 
-/**
+Example:
+_printf("%s", text);
 
- * init_params - clears struct fields and reset buf
+In the Example print the value of text with %s give the format of text.
 
- * @params: the parameters struct
+.B The conversion specifiers
 
- * @ap: the argument pointer
+.IP %c
+- prints character.
+.IP %s
+- prints string.
+.IP %%
+- prints percentage symbol.
+.IP %d
+- prints decimal.
+.IP %i
+- prints integer number.
 
- * Return: void
-
- */
-
-
-
-void init_params(params_t *params, va_list ap)
-
-{
-
-params->unsign = 0;
-
-
-
-params->plus_flag = 0;
-
-params->space_flag = 0;
-
-params->hashtag_flag = 0;
-
-params->zero_flag = 0;
-
-params->minus_flag = 0;
-
-
-
-params->width = 0;
-
-params->precision = UINT_MAX;
-
-
-
-params->h_modifier = 0;
-
-params->l_modifier = 0;
-
-(void)ap;
-
-}
+.SH SEE ALSO
+.I printf (3)
+.SH AUTHOR
+ACHILIHU Daniel
+DIDI Noble
